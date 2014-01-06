@@ -28,8 +28,8 @@ order_lib.addCustomer = function (customer, res){
 	
 	connection.query(sqlInsCust, function(err, rows, fields) {
 		var result = {};
-  		if (err) result.message = "Can't add this record. Please change the ISBN Number....";
-      	result.message = 'Record added Successfully';
-      	res.send(result.message);
+  		if (err) result.message = "Can't add this record. customer Number already exists....";
+      result.message = "customer added sucessfully";
+      	res.render('message',{message:result.message});
     });
 }

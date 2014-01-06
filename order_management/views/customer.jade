@@ -1,13 +1,15 @@
 html
   head
-    title
+    title Add New Customer
+    link(type='text/css', rel='stylesheet', href='stylesheets/style.css')
   body
+    include template
     table
       form(action='addCustomer', name = 'customer_form', method = 'post')
         tr
           td ID: 
           td
-            input(type='text', name='cust_id', value = '#{customer}')
+            input(type='text', name='cust_id', background = 'gray',value = '#{customer}', readOnly)
         tr
           td Name: 
           td
@@ -35,3 +37,5 @@ html
         tr
           td
             input(type='submit', value='Submit')
+          td
+            input(type='reset', value='Reset')

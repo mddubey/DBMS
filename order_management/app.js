@@ -24,8 +24,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+app.get('/', handler.getHome);
 app.get('/customer', order_m.fillCustomerInfo);
+app.get('/order', handler.placeOrder);
+app.get('/customer', handler.makePayment);
 app.post('/addCustomer',handler.addCustomer);
 
 
