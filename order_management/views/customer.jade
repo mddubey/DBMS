@@ -1,0 +1,37 @@
+html
+  head
+    title
+  body
+    table
+      form(action='addCustomer', name = 'customer_form', method = 'post')
+        tr
+          td ID: 
+          td
+            input(type='text', name='cust_id', value = '#{customer}')
+        tr
+          td Name: 
+          td
+            input(type='text', name='cust_name')
+        tr
+          td Address1: 
+          td
+            input(type='text', name='add1')
+        tr
+          td Address2: 
+          td
+            input(type='text', name='add2')
+        tr
+          td City: 
+          td
+            input(type='text', name='city')
+        tr
+          td Pin: 
+          td
+            input(type='text', name='pin')
+        tr
+          td Contact No: 
+          td
+            input(type='text', name='contact')
+        tr
+          td
+            input(type='submit', value='Submit')
