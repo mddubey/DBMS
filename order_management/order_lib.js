@@ -59,26 +59,19 @@ order_lib.getOrderForm = function(req,res){
 order_lib.insertOrderDetails = function(all_item_details,order_details,res){
   var insertOrderSql = 'insert into order_info set ?';
   var message = "";
+  console.log(order_details.cust_id)
   connection.query(insertOrderSql,order_details,function(err, rows){
     if(err) message = err;
     else{
         var insertItemSql = 'insert into order_item set ?';
-        // for(int i = 0;i<all_item_details.length;i++){
-        //   connection.query(insertItemSql,all_item_details[i],function(err,rows){
-        //     if(err){
-        //        message = err;
-        //        break;
-        //     }
-        //   })
-        // }
         all_item_details.forEach(function(item){
           connection.query(insertItemSql,item,function(err,rows){
             if(err) throw err;
           })
         })      
         message = "Order Inserted successfully";
-        res.render('message',{message:message});
     }
+    res.render('message',{message:message});
   })
   // connection.end();
 }

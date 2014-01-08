@@ -23,7 +23,7 @@ total_bill float
 
 alter table order_info add constraint primary key(order_id);
 
-alter table order_info add constraint order_fk_cust_id foreign key(order_id)
+alter table order_info add constraint order_fk_cust_id foreign key(cust_id)
  references customer(cust_id);
 
 create table order_item(
