@@ -1,23 +1,24 @@
 var mysql = require('mysql');
 var order_lib = {};
 exports.order_lib = order_lib;
-var connection = mysql.createConnection({
+var db_details = {
   host     : 'localhost',
   user     : 'mritunjay',
   password : '12345',
   database : 'test',
-});
+};
 
+var connection = mysql.createConnection(db_details);
 order_lib.getCustomerForm = function(req,res){
-	var max;
-	connection.query('SELECT max(cust_id) from customer', function(err, rows, fields) {
+  var max_cust_id = 'SELECT ifnull(max(cust_id),100) as cust_id from customer';
+  connection.query(max_cust_id, function(err, rows, fields) {
+      var max;
   		if (err) throw err;
-
-  		max = rows[0]['max(cust_id)'];
-  		if(!max) max = 100;
-  		else max += 1;
+  		max = rows[0]['cust_id'];
+  		max += 1;
   		res.render('customer',{customer:max});
 	});
+  connection.end();
 }
 
 order_lib.addCustomer = function (customer, res){
@@ -28,19 +29,29 @@ order_lib.addCustomer = function (customer, res){
     result.message = "customer added sucessfully";
     res.render('message',{message:result.message});
   });
+  connection.end();
+}
+
+var listAllProducts = function(res, max){
+  return function(err,rows){
+      if(err) throw err;
+      res.render('order',{orderId:max,products:rows});
+    }
+  connection.end();
+}
+
+var fillOrderId = function(res){
+  return function(err, rows, fields) {
+      var max;
+      if (err) throw err;
+      max = rows[0]['order_id'];
+      max += 1;
+      var products_query = 'SELECT product_id,product_name,unit_price from product_info';
+      connection.query(products_query,listAllProducts(res, max));
+  }
 }
 
 order_lib.getOrderForm = function(req,res){
-  var max;
-  connection.query('SELECT max(order_id) from order_info', function(err, rows, fields) {
-      if (err) throw err;
-
-      max = rows[0]['max(order_id)'];
-      if(!max) max = 100;
-      else max += 1;
-      connection.query('SELECT product_id,product_name,unit_price from product_info', function(err,rows){
-        if(err) throw err;
-        res.render('order',{orderId:max,products:rows});
-      });
-  });
+  var max_order_id = 'SELECT ifnull(max(order_id),100) as order_id from order_info';
+  connection.query(max_order_id,fillOrderId(res));
 }

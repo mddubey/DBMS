@@ -15,9 +15,20 @@ handler.getHome = function(req, res){
 	res.render('home');
 }
 
-handler.placeOrder = function(req,res){
-	console.log(req.body);
-}
+// var getItemDetais = function(req){
+// 	var item_details = {}
+// }
+
+// handler.placeOrder = function(req,res){
+// 	var order_details = {};
+// 	console.log(req.body);
+// 	order_details.order_id = req.body.order_id;
+// 	order_details.cust_id = req.body.cust_id;
+// 	order_details.date_of_order = req.body.order_dt;
+// 	order_details.date_of_delivery = req.body.delivery_dt;
+// 	order_details.total_bill = req.body.bill;
+// 	console.log(order_details);
+// }
 
 handler.makePayment = function(req, res){
 	res.send("Work in progress");
