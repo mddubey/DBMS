@@ -15,8 +15,8 @@ handler.getHome = function(req, res){
 	res.render('home');
 }
 
-handler.placeOrder = function(req, res){
-	res.send("Work in progress");
+handler.placeOrder = function(req,res){
+	console.log(req.body);
 }
 
 handler.makePayment = function(req, res){

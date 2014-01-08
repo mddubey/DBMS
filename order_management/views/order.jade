@@ -1,0 +1,51 @@
+html
+  head
+    title Place New Order
+    link(type='text/css', rel='stylesheet', href='stylesheets/style.css')
+  body
+    include template
+    form(action='placeOrder', name = 'order_details', method = 'post')
+      if(products.length>0)
+        table(border=1, name = 'products')
+          tr
+            th Product Id
+            th Product Name
+            th Price
+            th Quantity
+            th Select
+          -each product in products
+           tr
+            td #{product.product_id}
+            td #{product.product_name}
+            td 
+              input(type='text', name='#{product.product_id}', value ='#{product.unit_price}')
+            td
+              input(type='text', name='#{product.product_id}', placeholder='Quantity')
+            td
+              input(type='checkbox', name='#{product.product_id}')
+      table
+        tr
+          td ID: 
+          td
+            input(type='text', class = 'id', name='order_id', value = '#{orderId}', readOnly)
+        tr
+          td customer: 
+          td
+            input(type='text', name='cust_id')
+        tr
+          td Date of Order: 
+          td
+            input(type='date', name='order_dt')
+        tr
+          td Date of Delivery: 
+          td
+            input(type='date', name='delivery_dt')
+        tr
+          td Total Bill: 
+          td
+            input(type='text', name='bill')
+        tr
+          td
+            input(type='submit', value='Submit')
+          td
+            input(type='reset', value='Reset')
