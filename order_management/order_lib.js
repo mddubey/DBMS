@@ -17,8 +17,8 @@ order_lib.getCustomerForm = function(req,res){
   		max = rows[0]['cust_id'];
   		max += 1;
   		res.render('customer',{customer:max});
-	});
-  connection.end();
+  });
+  // connection.end();
 }
 
 order_lib.addCustomer = function (customer, res){
@@ -29,7 +29,7 @@ order_lib.addCustomer = function (customer, res){
     result.message = "customer added sucessfully";
     res.render('message',{message:result.message});
   });
-  connection.end();
+  // connection.end();
 }
 
 var listAllProducts = function(res, max){
@@ -37,7 +37,7 @@ var listAllProducts = function(res, max){
       if(err) throw err;
       res.render('order',{orderId:max,products:rows});
     }
-  connection.end();
+  // connection.end();
 }
 
 var fillOrderId = function(res){
@@ -54,4 +54,31 @@ var fillOrderId = function(res){
 order_lib.getOrderForm = function(req,res){
   var max_order_id = 'SELECT ifnull(max(order_id),100) as order_id from order_info';
   connection.query(max_order_id,fillOrderId(res));
+}
+
+order_lib.insertOrderDetails = function(all_item_details,order_details,res){
+  var insertOrderSql = 'insert into order_info set ?';
+  var message = "";
+  connection.query(insertOrderSql,order_details,function(err, rows){
+    if(err) message = err;
+    else{
+        var insertItemSql = 'insert into order_item set ?';
+        // for(int i = 0;i<all_item_details.length;i++){
+        //   connection.query(insertItemSql,all_item_details[i],function(err,rows){
+        //     if(err){
+        //        message = err;
+        //        break;
+        //     }
+        //   })
+        // }
+        all_item_details.forEach(function(item){
+          connection.query(insertItemSql,item,function(err,rows){
+            if(err) throw err;
+          })
+        })      
+        message = "Order Inserted successfully";
+        res.render('message',{message:message});
+    }
+  })
+  // connection.end();
 }
