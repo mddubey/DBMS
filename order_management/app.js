@@ -27,10 +27,12 @@ if ('development' == app.get('env')) {
 app.get('/', handler.getHome);
 app.get('/customer', handler.getCustomerForm);
 app.get('/order', order_m.getOrderForm);
-app.get('/customer', handler.makePayment);
+app.get('/payment', handler.getPaymentForm);
+app.post('/searchOrder', handler.getOrderBill);
 
 app.post('/addCustomer',handler.addCustomer);
 app.post('/placeOrder',handler.placeOrder);
+app.post('/makePayment',handler.makePayment);
 
 
 http.createServer(app).listen(app.get('port'), function(){

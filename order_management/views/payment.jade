@@ -1,0 +1,44 @@
+html
+  head
+    title Payment Details
+    link(type='text/css', rel='stylesheet', href='stylesheets/style.css')
+  body
+    include template
+    br
+    form(name='search', action='searchOrder', method='post')
+      table
+        tr
+          td Order-Id:
+          td
+            input(type='text', name='order_id', value = '#{order_id}')
+            | &nbsp;&nbsp;&nbsp;
+            input(type='submit', value='Search')
+
+    form(action='makePayment', name='pay_bill', method='post')
+      table
+        tr
+          td Order-Id:
+          td
+            input(type='text', name='order_id', value = '#{order_id}')
+        tr
+          td Payment-Mode: 
+          td
+            input(type='radio', name='payment_mode', value='cs')
+            | Cash
+            input(type='radio', name='payment_mode', value='cc')
+            | Credit Card
+            input(type='radio', name='payment_mode', value='ch')
+            | Cash
+        tr
+          td Payment-Date: 
+          td
+            input(type='date', name='payment_date')
+        tr
+          td Ammount: 
+          td
+            input(type='text', name='ammount', value = '#{bill}')
+        tr
+          td
+            input(type='submit', value='Submit')
+          td
+            input(type='Reset', value='Reset')

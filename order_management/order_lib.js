@@ -51,3 +51,21 @@ order_lib.insertOrderDetails = function(all_item_details,order_details,res){
     res.render('message',{message:message});
   })
 }
+
+order_lib.fillOrderBill = function(res, order_id){
+  var SqlGetBill = 'SELECT total_bill from order_info where order_id = ' + order_id;
+  connection.query(SqlGetBill, function(err, rows){
+    if(err) throw err;
+    if(rows[0] && rows[0].total_bill)
+      res.render('payment',{order_id:order_id,bill:rows[0].total_bill})
+    res.render('payment',{order_id:'',bill:0})
+  })
+}
+
+order_lib.insertPaymentDetails = function(res, paymentDetais){
+  var insPaySql = 'insert into payment_info set ?';
+  connection.query(insPaySql, paymentDetais, function(err, rows){
+    if(err) throw err;
+    res.render('message',{message:'payment details inserted successfully'});
+  })
+}

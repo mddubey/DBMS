@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>Payment Details</title>
+</head>
+<body>
+	<form name = "search" action = "searchOrder" method = "post">
+		Order-Id: 
+		<input type="text" name="order_id" >
+		<input type="submit" value="Search">
+	</form>
+	<form action = "makePayment" name = "pay_bill" method = "post">
+		<table>
+			<tr>
+				<td>Payment-Mode: </td>
+				<td><input type="radio" name="payment_mode" value = "cs">Cash
+				<input type="radio" name="payment_mode" value = "cc">Credit Card
+				<input type="radio" name="payment_mode" value = "ch">Cash</td>
+			</tr>		
+			<tr><td>Payment-Date: </td><td><input type="date" name="pay_date" ></td></tr>
+			<tr><td>Ammount: </td><td><input type="text" name="ammount" ></td></tr>
+			<tr><td><input type="submit" value="Submit"></td></tr>
+		</table>
+	</form>
+</body>
+</html>

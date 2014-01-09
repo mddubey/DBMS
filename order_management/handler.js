@@ -65,6 +65,14 @@ handler.placeOrder = function(req,res){
 	order_m.insertOrderDetails(all_item_details,order_details,res);
 }
 
+handler.getPaymentForm = function(req, res){
+	res.render('payment',{bill:0,order_id:''});
+}
+
+handler.getOrderBill = function(req, res){
+	order_m.fillOrderBill(res, req.body.order_id);
+}
+
 handler.makePayment = function(req, res){
-	res.send("Work in progress");
+	order_m.insertPaymentDetails(res, req.body);
 }
