@@ -25,7 +25,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', handler.getHome);
-app.get('/customer', order_m.getCustomerForm);
+app.get('/customer', handler.getCustomerForm);
 app.get('/order', order_m.getOrderForm);
 app.get('/customer', handler.makePayment);
 

@@ -2,12 +2,17 @@ var handler = {};
 exports.handler = handler;
 var order_m = require('./order_lib.js').order_lib;
 
+handler.getCustomerForm = function(req,res){
+	res.render('customer');
+}
+
 handler.addCustomer = function (req,res) {
 	var customer = {};
 	var fields = Object.keys(req.body);
 	fields.forEach(function(field){
 		customer[field] = req.body[field];
 	});
+	console.log(customer);
 	order_m.addCustomer(customer, res);
 }
 
