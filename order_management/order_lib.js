@@ -10,6 +10,7 @@ var db_details = {
 
 var connection = mysql.createConnection(db_details);
 
+
 order_lib.addCustomer = function (customer, res){
   var sqlInsCust = 'insert into customer set ?';
   connection.query(sqlInsCust,customer, function(err, rows, fields) {
@@ -70,7 +71,6 @@ order_lib.insertPaymentDetails = function(res, paymentDetais){
     if(err) throw err;
     var updateOrderSql = 'update order_info set is_paid = "Y" where order_id = '
                            + paymentDetais.order_id;
-                           console.log(updateOrderSql);
     connection.query(updateOrderSql, function(err, rows){
         if(err) throw err;
         res.render('message',{message:'payment details inserted successfully'});
