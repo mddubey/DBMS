@@ -1,0 +1,12 @@
+Add Customer[done]
+Place New Order[done]
+Make Payment[done]
+Show List
+Add Product
+
+***********************************************Problems & Pendings
+In payment while searching the record.
+	The order Id textbox is Redundent
+	Code is very complex
+	Status Flag for paid or not.
+	Show customer as select.

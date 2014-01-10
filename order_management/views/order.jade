@@ -18,14 +18,14 @@ html
             td #{product.product_id}
             td #{product.product_name}
             td 
-              input(type='text', name='#{product.product_id}', value ='#{product.unit_price}')
+              input(type='text', class = 'const', readOnly, name='#{product.product_id}', value ='#{product.unit_price}')
             td
               input(type='text', name='#{product.product_id}', placeholder='Quantity')
             td
               input(type='checkbox', name='#{product.product_id}')
       table
         tr
-          td customer: 
+          td customer-ID: 
           td
             input(type='text', name='cust_id')
         tr

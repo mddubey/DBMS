@@ -19,7 +19,7 @@ html
         tr
           td Order-Id:
           td
-            input(type='text', name='order_id', value = '#{order_id}')
+            input(type='text', name='order_id', class = 'const' ,readOnly, value = '#{order_id}')
         tr
           td Payment-Mode: 
           td
@@ -28,7 +28,7 @@ html
             input(type='radio', name='payment_mode', value='cc')
             | Credit Card
             input(type='radio', name='payment_mode', value='ch')
-            | Cash
+            | Cheque
         tr
           td Payment-Date: 
           td
@@ -36,7 +36,7 @@ html
         tr
           td Ammount: 
           td
-            input(type='text', name='ammount', value = '#{bill}')
+            input(type='text', name='ammount', class = 'const' ,readOnly, value = '#{bill}')
         tr
           td
             input(type='submit', value='Submit')

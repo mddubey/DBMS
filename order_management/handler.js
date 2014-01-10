@@ -46,6 +46,7 @@ var getOrderDetails = function(req){
 	order_details.date_of_order = req.body.order_dt;
 	order_details.date_of_delivery = req.body.delivery_dt;
 	order_details.total_bill = req.body.bill;
+	order_details.is_paid = 'N';
 	return order_details;
 }
 

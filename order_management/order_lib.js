@@ -32,24 +32,26 @@ order_lib.getOrderForm = function(req,res){
   connection.query(max_order_id,listAllProducts(res));
 }
 
+var insertEachItem = function(res, all_item_details){
+  return function(err, rows){
+    var order_id = rows.insertId;
+    if(err) throw err;
+    var insertItemSql = 'insert into order_item set ?';
+    all_item_details.forEach(function(item){
+      item.order_id = order_id;
+      connection.query(insertItemSql,item,function(err,rows){
+        if(err) throw err;
+      })
+    })      
+    message = "Order Inserted successfully";
+    res.render('message',{message:message});
+  }
+}
+
 order_lib.insertOrderDetails = function(all_item_details,order_details,res){
   var insertOrderSql = 'insert into order_info set ?';
   var message = "";
-  connection.query(insertOrderSql,order_details,function(err, rows){
-    var order_id = rows.insertId;
-    if(err) message = err;
-    else{
-        var insertItemSql = 'insert into order_item set ?';
-        all_item_details.forEach(function(item){
-          item.order_id = order_id;
-          connection.query(insertItemSql,item,function(err,rows){
-            if(err) throw err;
-          })
-        })      
-        message = "Order Inserted successfully";
-    }
-    res.render('message',{message:message});
-  })
+  connection.query(insertOrderSql,order_details,insertEachItem(res, all_item_details));
 }
 
 order_lib.fillOrderBill = function(res, order_id){
@@ -66,6 +68,12 @@ order_lib.insertPaymentDetails = function(res, paymentDetais){
   var insPaySql = 'insert into payment_info set ?';
   connection.query(insPaySql, paymentDetais, function(err, rows){
     if(err) throw err;
-    res.render('message',{message:'payment details inserted successfully'});
+    var updateOrderSql = 'update order_info set is_paid = "Y" where order_id = '
+                           + paymentDetais.order_id;
+                           console.log(updateOrderSql);
+    connection.query(updateOrderSql, function(err, rows){
+        if(err) throw err;
+        res.render('message',{message:'payment details inserted successfully'});
+    })
   })
 }
